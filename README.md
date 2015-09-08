@@ -1,6 +1,6 @@
 # Tutorial Example: React.js
 
-How to run this tutorial: Clone this repo! Hooray; that was step one. Then run `npm install` to get your own copy of the node_modeles. Next, run `node app.js` so that your server with comment data is up. Finally, open `index.html` in your browser. Then comment away!
+How to run this tutorial: Clone this repo! Hooray; that was step one. Then run `npm install` to get your own copy of the `node_modules`. Next, run `node app.js` so that your server with comment data is up. Finally, open `index.html` in your browser. Then comment away!
 
 
 ## Why did you choose this subject? How were you first made aware of it?
