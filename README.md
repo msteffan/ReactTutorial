@@ -31,5 +31,14 @@ The React.js documentation isn't great, which makes it hard for a beginner to co
 
 ## What resources do you recommend for interested students? What article or forum was most helpful to you in learning this?
 
+We worked through the React.js tutorial for building a comment box: https://facebook.github.io/react/docs/tutorial.html
+
+We also liked this blog post, "React for Stupid People": http://blog.andrewray.me/reactjs-for-stupid-people/
 
 ## What are 3 interview questions one might be asked about this technology?
+
+1. Compare and contrast Angular, React, and Backbone as MVC frameworks. (tip: TRICK QUESTION! React isn't a complete framework...) 
+
+2. When would you recommend using React over a basic templating engine?
+
+3. Explain the concept of a virtual DOM and how React uses the virtual DOM to update the DOM rendered in the browser.
