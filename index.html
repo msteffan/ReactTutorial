@@ -8,29 +8,39 @@
   <body>
     <div id="content"></div>
     <script type="text/jsx">
+        var data = [
+            {author: "Pete Hunt", text: "This is one comment"},
+            {author: "Jordan Walke", text: "This is *another* comment"}
+        ];
         var Comment = React.createClass({
             render: function(){
+                var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
                 return (
                     <div className="comment">
                         <h2 className="commentAuthor">
                             {this.props.author}
                         </h2>
-                        {this.props.children}
+                        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
                     </div>
                 );
             }
         });
         var CommentList = React.createClass({
-          render: function() {
-            return (
-              <div className="commentList">
-                <Comment author="Pete Hunt">This is one comment</Comment>
-                <Comment author="Jordan Walke">This is *another* comment</Comment>
-              </div>
-            );
-          }
-        });
-
+            render: function() {
+              var commentNodes = this.props.data.map(function (comment) {
+                return (
+                  <Comment author={comment.author}>
+                    {comment.text}
+                  </Comment>
+                );
+              });
+              return (
+                <div className="commentList">
+                  {commentNodes}
+                </div>
+              );
+            }
+          });
       var CommentForm = React.createClass({
           render: function() {
             return (
@@ -41,23 +51,44 @@
           }
       });
         var CommentBox = React.createClass({
-          render: function() {
-            return (
-              <div className="commentBox">
-                <h1>Comments</h1>
-                <CommentList />
-                <CommentForm />
-              </div>
-            );
-          }
-        });
+            getInitialState: function() {
+                return {data: []};
+            },
+            loadCommentsFromServer: function() {
+                $.ajax({
+                  url: "http://localhost:3000/comments.json",
+                  dataType: 'json',
+                  cache: false,
+                  success: function(data) {
+                    this.setState({data: data});
+                  }.bind(this),
+                  error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                  }.bind(this)
+                });
+              },
+              componentDidMount: function(){
+                  this.loadCommentsFromServer();
+                  setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+              },
+              render: function() {
+                return (
+                  <div className="commentBox">
+                    <h1>Comments</h1>
+                    <CommentList data={this.state.data} />
+                    <CommentForm />
+                  </div>
+                );
+              }
+            });
         React.render(
-          <CommentBox />,
+          <CommentBox url="http://localhost:3000/comments.json" pollInterval={2000} />,
           document.getElementById('content')
         );
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
   </body>
 </html>
