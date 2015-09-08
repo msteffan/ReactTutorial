@@ -1,3 +1,8 @@
+# Tutorial Example: React.js
+
+How to run this tutorial: Clone this repo! Hooray; that was step one. Then run `npm install` to get your own copy of the node_modeles. Next, run `node app.js` so that your server with comment data is up. Finally, open `index.html` in your browser. Then comment away!
+
+
 ## Why did you choose this subject? How were you first made aware of it?
 
 We chose to learn React.js in order to build on the concepts introduced in the mini-lesson from several weeks ago.
@@ -37,7 +42,7 @@ We also liked this blog post, "React for Stupid People": http://blog.andrewray.m
 
 ## What are 3 interview questions one might be asked about this technology?
 
-1. Compare and contrast Angular, React, and Backbone as MVC frameworks. (tip: TRICK QUESTION! React isn't a complete framework...) 
+1. Compare and contrast Angular, React, and Backbone as MVC frameworks. (tip: TRICK QUESTION! React isn't a complete framework...)
 
 2. When would you recommend using React over a basic templating engine?
 
