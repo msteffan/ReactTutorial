@@ -6,5 +6,21 @@
     {
         "author": "Paul O’Shannessy",
         "text": "React is *great*!"
+    },
+    {
+        "author": "Melissa",
+        "text": "This is my Second comment."
+    },
+    {
+        "author": "Melissa",
+        "text": "A Third Comment! I love commenting."
+    },
+    {
+        "author": "Ksenia",
+        "text": "Hooray strawberry candy!"
+    },
+    {
+        "author": "Ksenia",
+        "text": "I love David."
     }
 ]
