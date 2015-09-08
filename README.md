@@ -16,13 +16,13 @@ React is really new, so it doesn't have much history. Facebook built it and is m
 
 Here's the perspective of one of the FB engineers who developed React, addressing the concern that React is putting logic back into HTML:
 
-```"We all remember the days of mixing our PHP in with HTML. Code was really hard to maintain and security was an afterthought. We do not want to go back to those days.```
+`"We all remember the days of mixing our PHP in with HTML. Code was really hard to maintain and security was an afterthought. We do not want to go back to those days.`
 
 `Since those days, we have developed client and server-side templating languages to prevent engineers from committing this sin. However, these templating languages have a cost: they make building user interfaces harder. Doing something simple like alternating row colors in a table requires jumping through hoops in many languages.`
 
-What we should do instead is accept that user interfaces are becoming more and more complicated and that we need a real programming language (with all of its expressive power) to build user interfaces at scale.
+`What we should do instead is accept that user interfaces are becoming more and more complicated and that we need a real programming language (with all of its expressive power) to build user interfaces at scale.`
 
-```React is a library that embraces this idea. React still encourages separation of concerns: components fulfill only the role of the "view" in a traditional MVC application. However, instead of an oversimplified templating language, you get to use JavaScript to build abstractions and reuse code."```
+`React is a library that embraces this idea. React still encourages separation of concerns: components fulfill only the role of the "view" in a traditional MVC application. However, instead of an oversimplified templating language, you get to use JavaScript to build abstractions and reuse code."`
 
 ## What is your opinion on the technology after having built something with it? What are the biggest conceptual hurdles (if any) you encountered when researching this?
 
