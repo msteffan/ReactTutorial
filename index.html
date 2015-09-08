@@ -6,30 +6,36 @@
     <title>Hello React</title>
   </head>
   <body>
+    <!-- The div below #content is the element to which we'll append our Comment box once it renders -->
     <div id="content"></div>
-    <script type="text/jsx">
+    <script type="text/jsx"> // this is a special script tag type "jsx" for our react script
+
+
         var Comment = React.createClass({
+            // This function builds our individual Comment elements, similar to a "renderOne" function in Backbone.
             render: function(){
-                var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
                 return (
                     <div className="comment">
                         <h2 className="commentAuthor">
                             {this.props.author}
                         </h2>
-                        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+                        {this.props.children}
                     </div>
                 );
             }
         });
         var CommentList = React.createClass({
+            // in order to render each comment, we want to take our comments data (a JSON object, in this case), perform an action on each object, and then map the return value into a new array, commentNodes. Basically, for each set of comment data, we're going to build the Comment element, then store each element in a new array. In the render function's return value, we render  commentNodes, which is an array of <Comment> elements. Voila!
             render: function() {
               var commentNodes = this.props.data.map(function (comment) {
+                // this part is not dissimilar from the renderAll functions we built in Backbone views
                 return (
                   <Comment author={comment.author}>
                     {comment.text}
                   </Comment>
                 );
               });
+
               return (
                 <div className="commentList">
                   {commentNodes}
@@ -37,20 +43,26 @@
               );
             }
           });
+        // creating a form to let users upload their own comments; the form has two parts: the intial render and the event handler for when the form is submitted
       var CommentForm = React.createClass({
           handleSubmit: function(e) {
+            // on sumbit, prevent the default page refresh
             e.preventDefault();
+            // get the data for the new comment out of the input fields
             var author = React.findDOMNode(this.refs.author).value.trim();
             var text = React.findDOMNode(this.refs.text).value.trim();
             if (!text || !author) {
               return;
             }
+            // then submit the comment and re-set the field values to blank
             this.props.onCommentSubmit({author: author, text: text});            React.findDOMNode(this.refs.author).value = '';
             React.findDOMNode(this.refs.text).value = '';
             return;
           },
+          // render the comment form in the DOM
           render: function() {
             return (
+                // just a basic form
                 <form className="commentForm" onSubmit={this.handleSubmit}>
                   <input type="text" placeholder="Your name" ref="author" />
                   <textarea name="name" rows="1" cols="40" placeholder="Say something..." ref="text" ></textarea>
@@ -60,15 +72,18 @@
           }
       });
         var CommentBox = React.createClass({
+            //
             getInitialState: function() {
                 return {data: []};
             },
+            // ajax call to the server we're running to get the comment data
             loadCommentsFromServer: function() {
                 $.ajax({
                   url: "http://localhost:3000/comments.json",
                   dataType: 'json',
                   cache: false,
                   success: function(data) {
+                      // if the call is successful, run .setState() aka update the DOM
                     this.setState({data: data});
                   }.bind(this),
                   error: function(xhr, status, err) {
@@ -76,6 +91,7 @@
                   }.bind(this)
                 });
               },
+              // when the comment form is submitted, run this function. It makes a post request to the comments API, and then updates the DOM to render the comment asynchronously
               handleCommentSubmit: function(comment) {
                   var comments = this.state.data;
                   var newComments = comments.concat([comment]);
@@ -93,10 +109,12 @@
                       }.bind(this)
                     });
               },
+              // this function is key to dynamic rendering. It is going to run the loadCommentsFromServer function (above) at the interval specified in the React.render function below
               componentDidMount: function(){
                   this.loadCommentsFromServer();
                   setInterval(this.loadCommentsFromServer, this.props.pollInterval);
               },
+              // this function controls the rendering for the parent element, CommentBox. By rendering the comment box, we render the child elements (comment list and comment form) as well
               render: function() {
                 return (
                   <div className="commentBox">
@@ -107,11 +125,13 @@
                 );
               }
             });
+        // and now, finally: rendering the entire thing! Our render function takes two arguments, the element to append and the place to append it. In this case, we want to append our <CommentBox> element to div#content.
         React.render(
           <CommentBox url="http://localhost:3001/comments.json" pollInterval={2000} />,
           document.getElementById('content')
         );
     </script>
+    <!-- CDN scripts to run react, jquery, jsx -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
